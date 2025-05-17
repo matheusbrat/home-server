@@ -31,3 +31,9 @@ variable "tunnel_secret" {
   description = "The secret for the Cloudflare Tunnel"
   sensitive = true #  Mark the variable as sensitive
 }
+
+variable "emails_allowed" {
+  type = list(string)
+  description = "List e-mail allowed"
+  default = ["<replace>"]
+}
