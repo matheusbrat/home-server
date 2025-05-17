@@ -47,6 +47,6 @@ resource "cloudflare_zero_trust_access_policy" "home_network_policy" {
   decision   = "allow"
 
   include {
-    email = ["matheusbrat@gmail.com"]
+    email = var.emails_allowed
   }
 }
