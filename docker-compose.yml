@@ -1,0 +1,36 @@
+services:
+  navidrome:
+    image: deluan/navidrome:latest
+    container_name: navidrome
+    user: 1000:1000
+    network_mode: host
+    ports:
+      - 4533:4533
+    volumes:
+      - /home/matheusbrat/homeserver/navidrome/:/data:Z
+      - /mnt/data/music:/music:ro
+    restart: unless-stopped
+    environment:
+      - TZ=America/Sao_Paulo
+      - SCAN_INTERVAL=1h
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+
+  cloudflaredprivate:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflaredprivate
+    restart: unless-stopped
+    environment:
+      - TUNNEL_TOKEN=<tunnel token replace>
+    command: tunnel run
+    network_mode: host
+
+  cloudflaredpublic:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflaredpublic
+    restart: unless-stopped
+    environment:
+      - TUNNEL_TOKEN=<second tunnel replace>
+    command: tunnel run
+    network_mode: host
