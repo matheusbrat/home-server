@@ -1,5 +1,6 @@
 navidrome/*
 playlists/*
+docker-compose-run.yml
 
 # Local .terraform directories
 .terraform/
