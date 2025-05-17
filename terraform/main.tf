@@ -11,33 +11,7 @@ provider "cloudflare" {
   api_token = var.cloudflare_api_token
 }
 
-variable "cloudflare_account_id" {
-  type        = string
-  description = "Your Cloudflare Account ID"
-}
 
-variable "cloudflare_api_token" {
-  type        = string
-  description = "Your Cloudflare API Token"
-}
-
-variable "domain_name" {
-  type        = string
-  description = "Your domain name"
-  default     = "matbra.com"
-}
-
-variable "tunnel_name" {
-  type        = string
-  description = "The name of the Cloudflare Tunnel"
-  default     = "matbra-home-tunnel"
-}
-
-variable "ip_range" {
-  type        = string
-  description = "The IP range of your home network"
-  default     = "192.168.68.0/24"
-}
 
 # Create a Cloudflare Tunnel. This sets up the connection point
 # between your home network and Cloudflare's network.
@@ -76,16 +50,3 @@ resource "cloudflare_zero_trust_access_policy" "home_network_policy" {
     email = ["matheusbrat@gmail.com"]
   }
 }
-
-output "tunnel_token" {
-  description = "Cloudflare Tunnel Token"
-  value = cloudflare_zero_trust_tunnel_cloudflared.home_tunnel.tunnel_token
-  sensitive   = true
-}
-
-variable "tunnel_secret" {
-  type = string
-  description = "The secret for the Cloudflare Tunnel"
-  sensitive = true #  Mark the variable as sensitive
-}
-
